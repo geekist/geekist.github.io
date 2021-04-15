@@ -1,7 +1,7 @@
 # Site settings
-name: Less Or More
-email: luoyan35714@126.com
-author: Freud Kang
+name: Life is a piece of bread
+email: yw_007@163.com
+author: Jon Yang
 url: http://www.hifreud.com
 resume_site: http://www.hifreud.com/Resume.io/
 github: https://github.com/luoyan35714/
@@ -9,7 +9,7 @@ baseurl: ""
 description: Actually, less is more!
 meta_description: 康志华;个人博客;学而不思则罔;思而不学则殆;生命不止;折腾不休
 motto: It's our wits that make us men.
-banner: 学而不思则罔，思而不学则殆。
+banner: 行万里路，读万卷书，识万般人。
 
 #permalink: /:categories/:year/:month/:day/:title/
 permalink: /:year/:month/:day/:title/
