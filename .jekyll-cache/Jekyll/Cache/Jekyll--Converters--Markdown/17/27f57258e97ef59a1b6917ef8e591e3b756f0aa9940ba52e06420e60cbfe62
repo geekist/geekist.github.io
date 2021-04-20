@@ -1,0 +1,66 @@
+I"�<h3 id="快捷键">快捷键</h3>
+
+<p>C –&gt; Ctrl</p>
+
+<p>S –&gt; Shift</p>
+
+<p>M –&gt; Alt</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">功能</th>
+      <th style="text-align: left">快捷键</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">返回</td>
+      <td style="text-align: left">M-,</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">前进</td>
+      <td style="text-align: left">M-.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">跳到定义</td>
+      <td style="text-align: left">C-=</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">查找引用</td>
+      <td style="text-align: left">C-/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">搜索</td>
+      <td style="text-align: left">C-f</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">向下搜索</td>
+      <td style="text-align: left">F4</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">向上搜索</td>
+      <td style="text-align: left">F3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">高亮当前单词</td>
+      <td style="text-align: left">S-F8</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="qa">Q&amp;A</h3>
+
+<ol>
+  <li>
+    <p>新建工程后函数跳转等遇到 <code class="language-plaintext highlighter-rouge">symbol not found</code> 如何解决？</p>
+
+    <p>打开菜单里的「Project」-「Synchronize Files」（快捷键 <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>），勾选 <code class="language-plaintext highlighter-rouge">Force all files to be re-parsed</code> 后点击 <code class="language-plaintext highlighter-rouge">OK</code>，等待 Source Insight 重新解析工程里的文件完成即可。</p>
+  </li>
+  <li>
+    <p>如何在标题栏里显示文件全路径？</p>
+
+    <p>打开菜单里的「Options」-「Preferences」-「Display」，取消勾选 <code class="language-plaintext highlighter-rouge">Trim long path names with ellipses</code>。</p>
+  </li>
+</ol>
+:ET

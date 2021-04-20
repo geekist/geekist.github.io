@@ -1,0 +1,121 @@
+I"8
+<p>地球上最好用的 C++ 开发环境，没有之一。现在也有免费的社区版了，可惜以前密集写 C++ 代码的时候没赶上。</p>
+
+<h2 id="快捷键">快捷键</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>快捷键</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>快速打开 anything</td>
+      <td>C-,</td>
+    </tr>
+    <tr>
+      <td>当前打开文件</td>
+      <td>C-M-Down</td>
+    </tr>
+    <tr>
+      <td>切换头/源文件</td>
+      <td>C-ko</td>
+    </tr>
+    <tr>
+      <td>返回</td>
+      <td>C–</td>
+    </tr>
+    <tr>
+      <td>前进</td>
+      <td>C-S–</td>
+    </tr>
+    <tr>
+      <td>跳转到定义</td>
+      <td>F12</td>
+    </tr>
+    <tr>
+      <td>在新窗口展示定义</td>
+      <td>M-F12</td>
+    </tr>
+    <tr>
+      <td>跳转到声明</td>
+      <td>C-M-F12</td>
+    </tr>
+    <tr>
+      <td>上/下移动行</td>
+      <td>M-Up/Down</td>
+    </tr>
+    <tr>
+      <td>在上面插入行</td>
+      <td>C-Enter</td>
+    </tr>
+    <tr>
+      <td>在下面插入行</td>
+      <td>C-S-Enter</td>
+    </tr>
+    <tr>
+      <td>折叠/展开当前代码段</td>
+      <td>C-mm</td>
+    </tr>
+    <tr>
+      <td>注释</td>
+      <td>C-kc</td>
+    </tr>
+    <tr>
+      <td>取消注释</td>
+      <td>C-ku</td>
+    </tr>
+    <tr>
+      <td>选中单词大写</td>
+      <td>C-S-u</td>
+    </tr>
+    <tr>
+      <td>选中单词小写</td>
+      <td>C-u</td>
+    </tr>
+    <tr>
+      <td>调试</td>
+      <td>F5</td>
+    </tr>
+    <tr>
+      <td>执行</td>
+      <td>C-F5</td>
+    </tr>
+    <tr>
+      <td>设置断点</td>
+      <td>F9</td>
+    </tr>
+    <tr>
+      <td>步过</td>
+      <td>F10</td>
+    </tr>
+    <tr>
+      <td>步入</td>
+      <td>F11</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="插件">插件</h2>
+
+<ul>
+  <li>
+    <p><a href="https://marketplace.visualstudio.com/items?itemName=NoahRichards.GoToDefinition">Go To Definition</a></p>
+
+    <p>Make ctrl+click perform a “Go To Definition” on the identifier under the cursor.</p>
+  </li>
+  <li>
+    <p><a href="https://marketplace.visualstudio.com/items?itemName=WholeTomatoSoftware.VisualAssist">Visual Assist</a></p>
+
+    <p>Productivity tool for C/C++ and C# that improves IDE features related to navigation, refactoring, code generation, and coding assistance.</p>
+  </li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+  <li><a href="http://wenku.baidu.com/link?url=HPb7QlXnADYV7xgZ9lBHgGWTMcS-srDHselMynLfgG_kd7OXGM25qv6KWxzHfU5HbHDJTHHFLXJ0RsJv9295VFxJKusvjo1JlvQ0yfoUuda">visual studio 2013 快捷键大全、VS2013常用快捷键完整页</a></li>
+</ul>
+:ET

@@ -1,0 +1,128 @@
+I" &<p>使用 PowerShell 打造 Windows 下的顺手终端。</p>
+
+<h2 id="与-cmder-配合使用">与 Cmder 配合使用</h2>
+
+<p>搭配 Cmder 一起服用，才最好。</p>
+
+<h2 id="配置文件位置">配置文件位置</h2>
+
+<p>PowerShell 6 默认配置文件 <code class="language-plaintext highlighter-rouge">~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1</code>。</p>
+
+<p>PowerShell 7 默认配置文件 <code class="language-plaintext highlighter-rouge">&lt;我的文档&gt;/PowerShell/Microsoft.PowerShell_profile.ps1</code></p>
+
+<p>Cmder 的 PowerShell 配置文件 <code class="language-plaintext highlighter-rouge">&lt;cmd_install_path&gt;/config/user-profile.ps1</code>。</p>
+
+<h2 id="alias">alias</h2>
+
+<h3 id="快速进入某目录">快速进入某目录</h3>
+
+<p>例：通过 <code class="language-plaintext highlighter-rouge">src</code> 命令快速进入 <code class="language-plaintext highlighter-rouge">d:\sources\</code> 目录。</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">function</span><span class="w"> </span><span class="nf">Enter-Sources</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">cd</span><span class="w"> </span><span class="nx">d:\sources\</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">src</span><span class="w"> </span><span class="nx">Enter-Sources</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="快速打开当前文件夹">快速打开当前文件夹</h3>
+
+<p>例：通过 <code class="language-plaintext highlighter-rouge">e.</code> 命令快速在资源管理器打开当前文件夹。</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">function</span><span class="w"> </span><span class="nf">Open-Current-Directory</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">explorer</span><span class="w"> </span><span class="o">.</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">e.</span><span class="w"> </span><span class="nx">Open-Current-Directory</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="git-相关命令">git 相关命令</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">## gs=git status</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Git-Status</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">git</span><span class="w"> </span><span class="nx">status</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">gs</span><span class="w"> </span><span class="nx">Git-Status</span><span class="w">
+
+</span><span class="c">## ga=git add .</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Git-Add-All</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">git</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="o">.</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">ga</span><span class="w"> </span><span class="nx">Git-Add-All</span><span class="w">
+
+</span><span class="c">## gg=gitk</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Git-Gui</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">gitk</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">gg</span><span class="w"> </span><span class="nx">Git-Gui</span><span class="w">
+
+</span><span class="c">## gpull=git pull origin &lt;current branch&gt;</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Git-Pull-Current-Branch</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$currentBranch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="nx">symbolic-ref</span><span class="w"> </span><span class="nt">--short</span><span class="w"> </span><span class="nt">-q</span><span class="w"> </span><span class="nx">HEAD</span><span class="w">
+    </span><span class="n">git</span><span class="w"> </span><span class="nx">pull</span><span class="w"> </span><span class="nx">origin</span><span class="w"> </span><span class="nv">$currentBranch</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">gpull</span><span class="w"> </span><span class="nx">Git-Pull-Current-Branch</span><span class="w">
+
+</span><span class="c">## gpush=git push origin &lt;current branch&gt;</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Git-Push-Current-Branch</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$currentBranch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="nx">symbolic-ref</span><span class="w"> </span><span class="nt">--short</span><span class="w"> </span><span class="nt">-q</span><span class="w"> </span><span class="nx">HEAD</span><span class="w">
+    </span><span class="n">git</span><span class="w"> </span><span class="nx">push</span><span class="w"> </span><span class="nx">origin</span><span class="w"> </span><span class="nv">$currentBranch</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">gpush</span><span class="w"> </span><span class="nx">Git-Push-Current-Branch</span><span class="w">
+
+</span><span class="c">## g1=add、commit、push 一条龙</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Git-Commit-And-Push</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">git</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="o">.</span><span class="w">
+    </span><span class="n">git</span><span class="w"> </span><span class="nx">commit</span><span class="w"> </span><span class="nt">-m</span><span class="w"> </span><span class="bp">$args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">
+    </span><span class="n">Git-Push-Current-Branch</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">g1</span><span class="w"> </span><span class="nx">Git-Commit-And-Push</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="objdump">objdump</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">function</span><span class="w"> </span><span class="nf">Obj-Dump</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">D:\Android\sdk\ndk-bundle\toolchains\x86_64-4.9\prebuilt\windows-x86_64\bin\x86_64-linux-android-objdump.exe</span><span class="w"> </span><span class="bp">$args</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Set-Alias</span><span class="w"> </span><span class="nx">objdump</span><span class="w"> </span><span class="nx">Obj-Dump</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="快捷键映射">快捷键映射</h2>
+
+<p>从 Linux/macOS 的 bash 甚至 Windows 的 cmd 下切换过来后，发现 ctrl-u、ctrl-k 等快捷键不可用了，各种不顺手，PSReadLine 拯救你。</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ctrl-k, ctrl-u, ctrl-a, ctrl-e, ctrl-b, ctrl-f, etc</span><span class="w">
+</span><span class="n">Import-Module</span><span class="w"> </span><span class="nx">PSReadLine</span><span class="w">
+</span><span class="n">Set-PSReadLineOption</span><span class="w"> </span><span class="nt">-EditMode</span><span class="w"> </span><span class="nx">Emacs</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="常用命令">常用命令</h2>
+
+<h3 id="查看-path-环境变量">查看 PATH 环境变量</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type env:path
+</code></pre></div></div>
+
+<p>或者将它们每个一行显示：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(type env:path) -split ';'
+</code></pre></div></div>
+
+<p>还可以过滤：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(type env:path) -split ';' | sls bin
+</code></pre></div></div>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+  <li><a href="http://blog.vichamp.com/2014/08/05/quick-examine-path-env-variable-with-powershell/">用 PowerShell 快速查看 PATH 环境变量</a></li>
+</ul>
+:ET

@@ -1,0 +1,175 @@
+I"=<p><strong>更新：</strong> 此文发到 <a href="https://v2ex.com/t/761286">V2EX</a> 后，有网友指出文中的案例代码改写为 <code class="language-plaintext highlighter-rouge">List&lt;String&gt; result = paramList.parallelStream().map(this::doSomething).collect(toList());</code> 就能很好的解决，确实如此，当时代码审查时意识到这里有线程安全问题，然后我就有点思维定势，只想着用解决线程安全问题的方式去处理，没有换个角度想到这种更好的写法。以下仍然保留原文，阅读重点可以放「线程安全」的分析理解上，<code class="language-plaintext highlighter-rouge">parallelStream</code> 权当为了举例而简写的一种多线程写法。实际遇上它时可以优先用 <code class="language-plaintext highlighter-rouge">parallelStream.map().collect()</code> 和 <code class="language-plaintext highlighter-rouge">parallelStream.flatMap().collect()</code> 这类方案。</p>
+
+<p>以下为原正文。</p>
+
+<hr />
+
+<p>本文从代码审查过程中发现的一个 ArrayList 相关的「线程安全」问题出发，来剖析和理解线程安全。</p>
+
+<h2 id="案例分析">案例分析</h2>
+
+<p>前两天在代码 Review 的过程中，看到有小伙伴用了类似以下的写法：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">resultList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+<span class="n">paramList</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">value</span> <span class="o">=</span> <span class="n">doSomething</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
+    <span class="n">resultList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p>印象中 ArrayList 是线程不安全的，而这里会多线程改写同一个 ArrayList 对象，感觉这样的写法会有问题，于是看了下 ArrayList 的实现来确认问题，同时复习下相关知识。</p>
+
+<p>先贴个概念：</p>
+
+<blockquote>
+  <p><strong>线程安全</strong> 是程式设计中的术语，指某个函数、函数库在多线程环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。 ——维基百科</p>
+</blockquote>
+
+<p>我们来看下 ArrayList 源码里与本话题相关的关键信息：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="no">E</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">AbstractList</span><span class="o">&lt;</span><span class="no">E</span><span class="o">&gt;</span>
+        <span class="kd">implements</span> <span class="nc">List</span><span class="o">&lt;</span><span class="no">E</span><span class="o">&gt;,</span> <span class="nc">RandomAccess</span><span class="o">,</span> <span class="nc">Cloneable</span><span class="o">,</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span>
+<span class="o">{</span>
+    <span class="c1">// ...</span>
+    
+    <span class="cm">/**
+     * The array buffer into which the elements of the ArrayList are stored.
+     * The capacity of the ArrayList is the length of this array buffer... 
+     */</span>
+    <span class="kd">transient</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">elementData</span><span class="o">;</span> <span class="c1">// non-private to simplify nested class access</span>
+
+    <span class="cm">/**
+     * The size of the ArrayList (the number of elements it contains).
+     */</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="cm">/**
+     * Appends the specified element to the end of this list...
+     */</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="no">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ensureCapacityInternal</span><span class="o">(</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>  <span class="c1">// Increments modCount!!</span>
+        <span class="n">elementData</span><span class="o">[</span><span class="n">size</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>从中我们可以关注到关于 ArrayList 的几点信息：</p>
+
+<ol>
+  <li>使用数组存储数据，即 <code class="language-plaintext highlighter-rouge">elementData</code></li>
+  <li>使用 int 成员变量 <code class="language-plaintext highlighter-rouge">size</code> 记录实际元素个数</li>
+  <li><code class="language-plaintext highlighter-rouge">add</code> 方法逻辑与执行顺序：
+    <ul>
+      <li>执行 <code class="language-plaintext highlighter-rouge">ensureCapacityInternal(size + 1)</code>：确认 <code class="language-plaintext highlighter-rouge">elementData</code> 的容量是否够用，不够用的话扩容一半（申请一个新的大数组，将 <code class="language-plaintext highlighter-rouge">elementData</code> 里的原有内容 copy 过去，然后将新的大数组赋值给 <code class="language-plaintext highlighter-rouge">elementData</code>）</li>
+      <li>执行 <code class="language-plaintext highlighter-rouge">elementData[size] = e;</code></li>
+      <li>执行 <code class="language-plaintext highlighter-rouge">size++</code></li>
+    </ul>
+  </li>
+</ol>
+
+<p>为了方便理解这里讨论的「线程安全问题」，我们选一个最简单的执行路径来分析，假设有 A 和 B 两个线程同时调用 <code class="language-plaintext highlighter-rouge">ArrayList.add</code> 方法，而此时 <code class="language-plaintext highlighter-rouge">elementData</code> 容量为 8，<code class="language-plaintext highlighter-rouge">size</code> 为 7，足以容纳一个新增的元素，那么可能发生什么现象呢？</p>
+
+<p><img src="/images/posts/java/thread-safety-arraylist-add.png" alt="Thread Safety ArrayList Add" /></p>
+
+<p>一种可能的执行顺序是：</p>
+
+<ul>
+  <li>线程 A 和 B 同时执行了 <code class="language-plaintext highlighter-rouge">ensureCapacityInternal(size + 1)</code>，因 <code class="language-plaintext highlighter-rouge">7 + 1</code> 并没超过 <code class="language-plaintext highlighter-rouge">elementData</code> 的容量 8，所以并未扩容</li>
+  <li>线程 A 先执行 <code class="language-plaintext highlighter-rouge">elementData[size++] = e;</code>，此时 <code class="language-plaintext highlighter-rouge">size</code> 变为 8</li>
+  <li>线程 B 执行 <code class="language-plaintext highlighter-rouge">elementData[size++] = e;</code>，因为 <code class="language-plaintext highlighter-rouge">elementData</code> 数组长度为 8，却访问 <code class="language-plaintext highlighter-rouge">elementData[8]</code>，数组下标越界</li>
+</ul>
+
+<p>程序会抛出异常，无法正常执行完，根据前文提到的线程安全的定义，很显然这已经是属于线程不安全的情况了。</p>
+
+<h2 id="构造示例代码验证">构造示例代码验证</h2>
+
+<p>有了以上的理解之后，我们来写一段简单的示例代码，验证以上问题确实可能发生：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">resultList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">paramList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">10000</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">paramList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">paramList</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="nl">resultList:</span><span class="o">:</span><span class="n">add</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>执行以上代码有可能表现正常，但更可能是遇到以下异常：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at java.util.concurrent.ForkJoinTask.getThrowableException(ForkJoinTask.java:598)
+	at java.util.concurrent.ForkJoinTask.reportException(ForkJoinTask.java:677)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:735)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateParallel(ForEachOps.java:160)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateParallel(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:583)
+	at concurrent.ConcurrentTest.main(ConcurrentTest.java:18)
+Caused by: java.lang.ArrayIndexOutOfBoundsException: 1234
+	at java.util.ArrayList.add(ArrayList.java:465)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1384)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:291)
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:731)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1067)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1703)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:172)
+</code></pre></div></div>
+
+<p>从我这里试验的情况来看，<code class="language-plaintext highlighter-rouge">length</code> 值小的时候，因为达到容量边缘需要扩容的次数少，不易重现，将 <code class="language-plaintext highlighter-rouge">length</code> 值调到比较大时，异常抛出率就很高了。</p>
+
+<p>实际上除了抛出这种异常外，以上场景还可能造成数据覆盖/丢失、ArrayList 里实际存放的元素个数与 size 值不符等其它问题，感兴趣的同学可以继续挖掘一下。</p>
+
+<h2 id="解决方案">解决方案</h2>
+
+<p>对这类问题常见的有效解决思路就是对共享的资源访问加锁。</p>
+
+<p>我提出代码审查的修改意见后，小伙伴将文首代码里的</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">resultList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+</code></pre></div></div>
+
+<p>修改为了</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">resultList</span> <span class="o">=</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">synchronizedList</span><span class="o">(</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;());</span>
+</code></pre></div></div>
+
+<p>这样实际最终会使用 <code class="language-plaintext highlighter-rouge">SynchronizedRandomAccessList</code>，看它的实现类，其实里面也是加锁，它内部持有一个 List，用 synchronized 关键字控制对 List 的读写访问，这是一种思路——使用线程安全的集合类，对应的还可以使用 Vector 等其它类似的类来解决问题。</p>
+
+<p>另外一种方思路是手动对关键代码段加锁，比如我们也可以将</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resultList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>修改为</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">synchronized</span> <span class="o">(</span><span class="n">mutex</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">resultList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="小结">小结</h2>
+
+<p>Java 8 的并行流提供了很方便的并行处理、提升程序执行效率的写法，我们在编码的过程中，对用到多线程的地方要保持警惕，有意识地预防此类问题。</p>
+
+<p>对应的，我们在做代码审查的过程中，也要对涉及到多线程使用的场景时刻绷着一根弦，在代码合入前把好关，将隐患拒之门外。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+  <li><a href="https://zh.wikipedia.org/zh-hans/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">线程安全——维基百科</a></li>
+</ul>
+:ET

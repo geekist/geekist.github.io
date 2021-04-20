@@ -1,0 +1,65 @@
+I"�	<p>类 Unix 系统下的一些常用命令和用法。</p>
+
+<h2 id="实用命令">实用命令</h2>
+
+<h3 id="chown">chown</h3>
+
+<p>更改文件所有者和组。</p>
+
+<p>比如某文件夹当前所有者是 root，需要更改为 admin：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chown</span> <span class="nt">-R</span> admin:admin <span class="nb">test</span>
+</code></pre></div></div>
+
+<h3 id="chmod">chmod</h3>
+
+<p>修改文件权限。</p>
+
+<h3 id="fuser">fuser</h3>
+
+<p>查看文件被谁占用。</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fuser <span class="nt">-u</span> .linux.md.swp
+</code></pre></div></div>
+
+<h3 id="id">id</h3>
+
+<p>查看当前用户、组 id。</p>
+
+<h3 id="lsof">lsof</h3>
+
+<p>查看打开的文件列表。</p>
+
+<blockquote>
+  <p>An  open  file  may  be  a  regular  file,  a directory, a block special file, a character special file, an executing text reference, a library, a stream or a network file (Internet socket, NFS file or UNIX domain socket.)  A specific file or all the files in a file system may be selected by path.</p>
+</blockquote>
+
+<h4 id="查看网络相关的文件占用">查看网络相关的文件占用</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-i</span>
+</code></pre></div></div>
+
+<h4 id="查看端口占用">查看端口占用</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-i</span> tcp:5037
+</code></pre></div></div>
+
+<h4 id="查看某个文件被谁占用">查看某个文件被谁占用</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof .linux.md.swp
+</code></pre></div></div>
+
+<h4 id="查看某个用户占用的文件信息">查看某个用户占用的文件信息</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-u</span> mazhuang
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-u</code> 后面可以跟 uid 或 login name。</p>
+
+<h4 id="查看某个程序占用的文件信息">查看某个程序占用的文件信息</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-c</span> Vim
+</code></pre></div></div>
+
+<p>注意程序名区分大小写。</p>
+:ET

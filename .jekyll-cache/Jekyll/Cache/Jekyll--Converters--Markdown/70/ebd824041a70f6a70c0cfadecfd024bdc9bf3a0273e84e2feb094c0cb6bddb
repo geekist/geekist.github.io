@@ -1,0 +1,716 @@
+I"��<h2 id="常用命令">常用命令</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">功能</th>
+      <th style="text-align: left">命令</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">添加文件/更改到暂存区</td>
+      <td style="text-align: left">git add filename</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">添加所有文件/更改到暂存区</td>
+      <td style="text-align: left">git add .</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">提交</td>
+      <td style="text-align: left">git commit -m msg</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">从远程仓库拉取最新代码</td>
+      <td style="text-align: left">git pull origin master</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">推送到远程仓库</td>
+      <td style="text-align: left">git push origin master</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">查看配置信息</td>
+      <td style="text-align: left">git config –list</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">查看文件列表</td>
+      <td style="text-align: left">git ls-files</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">比较工作区和暂存区</td>
+      <td style="text-align: left">git diff</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">比较暂存区和版本库</td>
+      <td style="text-align: left">git diff –cached</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">比较工作区和版本库</td>
+      <td style="text-align: left">git diff HEAD</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">从暂存区移除文件</td>
+      <td style="text-align: left">git reset HEAD filename</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">查看本地远程仓库配置</td>
+      <td style="text-align: left">git remote -v</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">回滚</td>
+      <td style="text-align: left">git reset –hard 提交SHA</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">强制推送到远程仓库</td>
+      <td style="text-align: left">git push -f origin master</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">修改上次 commit</td>
+      <td style="text-align: left">git commit –amend</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">推送 tags 到远程仓库</td>
+      <td style="text-align: left">git push –tags</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">推送单个 tag 到远程仓库</td>
+      <td style="text-align: left">git push origin [tagname]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">删除远程分支</td>
+      <td style="text-align: left">git push origin –delete [branchName]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">远程空分支（等同于删除）</td>
+      <td style="text-align: left">git push origin :[branchName]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">查看所有分支历史</td>
+      <td style="text-align: left">gitk –all</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">按日期排序显示历史</td>
+      <td style="text-align: left">gitk –date-order</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="qa">Q&amp;A</h2>
+
+<h3 id="如何解决gitk中文乱码git-ls-files-中文文件名乱码问题">如何解决gitk中文乱码，git ls-files 中文文件名乱码问题？</h3>
+
+<p>在~/.gitconfig中添加如下内容</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[core]
+   quotepath = false
+[gui]
+   encoding = utf-8
+[i18n]
+   commitencoding = utf-8
+[svn]
+   pathnameencoding = utf-8
+</code></pre></div></div>
+
+<p>参考 <a href="http://zengrong.net/post/1249.htm">http://zengrong.net/post/1249.htm</a></p>
+
+<h3 id="如何处理本地有更改需要从服务器合入新代码的情况">如何处理本地有更改需要从服务器合入新代码的情况？</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git stash
+git pull
+git stash pop
+</code></pre></div></div>
+
+<h3 id="stash">stash</h3>
+
+<p>查看 stash 列表：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git stash list
+</code></pre></div></div>
+
+<p>查看某一次 stash 的改动文件列表（不传最后一个参数默认显示最近一次）：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git stash show "stash@{0}"
+</code></pre></div></div>
+
+<p>以 patch 方式显示改动内容</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git stash show -p "stash@{0}"
+</code></pre></div></div>
+
+<p>应用某次 stash 改动内容：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git stash apply "stash@{0}"
+</code></pre></div></div>
+
+<h3 id="如何合并-fork-的仓库的上游更新">如何合并 fork 的仓库的上游更新？</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add upstream https://upstream-repo-url
+git fetch upstream
+git merge upstream/master
+</code></pre></div></div>
+
+<h3 id="如何通过-tortoisesvn-带的-tortoisemergeexe-处理-git-产生的-conflict">如何通过 TortoiseSVN 带的 TortoiseMerge.exe 处理 git 产生的 conflict？</h3>
+<ul>
+  <li>将 TortoiseMerge.exe 所在路径添加到 <code class="language-plaintext highlighter-rouge">path</code> 环境变量。</li>
+  <li>运行命令 <code class="language-plaintext highlighter-rouge">git config --global merge.tool tortoisemerge</code> 将 TortoiseMerge.exe 设置为默认的 merge tool。</li>
+  <li>
+    <p>在产生 conflict 的目录运行 <code class="language-plaintext highlighter-rouge">git mergetool</code>，TortoiseMerge.exe 会跳出来供你 resolve conflict。</p>
+
+    <blockquote>
+      <p>也可以运行 <code class="language-plaintext highlighter-rouge">git mergetool -t vimdiff</code> 使用 <code class="language-plaintext highlighter-rouge">-t</code> 参数临时指定一个想要使用的 merge tool。</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="不想跟踪的文件已经被提交了如何不再跟踪而保留本地文件">不想跟踪的文件已经被提交了，如何不再跟踪而保留本地文件？</h3>
+
+<p><code class="language-plaintext highlighter-rouge">git rm --cached /path/to/file</code>，然后正常 add 和 commit 即可。</p>
+
+<h3 id="如何不建立一个没有-parent-的-branch">如何不建立一个没有 parent 的 branch？</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout --orphan newbranch
+</code></pre></div></div>
+
+<p>此时 <code class="language-plaintext highlighter-rouge">git branch</code> 是不会显示该 branch 的，直到你做完更改首次 commit。比如你可能会想建立一个空的 gh-pages branch，那么：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout --orphan gh-pages
+git rm -rf .
+// add your gh-pages branch files
+git add .
+git commit -m "init commit"
+</code></pre></div></div>
+
+<h3 id="submodule-的常用命令">submodule 的常用命令</h3>
+
+<p><strong>添加 submodule</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git submodule add git@github.com:philsquared/Catch.git Catch
+</code></pre></div></div>
+
+<p>这会在仓库根目录下生成如下 .gitmodules 文件并 clone 该 submodule 到本地。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[submodule "Catch"]
+path = Catch
+url = git@github.com:philsquared/Catch.git
+</code></pre></div></div>
+
+<p><strong>更新 submodule</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git submodule update
+</code></pre></div></div>
+
+<p>当 submodule 的 remote 有更新的时候，需要</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git submodule update --remote
+</code></pre></div></div>
+
+<p>当在本地拉取了 submodule 的远程更新，但是想反悔时：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git submodule update --init
+</code></pre></div></div>
+
+<p><strong>删除 submodule</strong></p>
+
+<p>在 .gitmodules 中删除对应 submodule 的信息，然后使用如下命令删除子模块所有文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rm --cached Catch
+</code></pre></div></div>
+
+<p><strong>clone 仓库时拉取 submodule</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git submodule update --init --recursive
+</code></pre></div></div>
+
+<h3 id="删除远程-tag">删除远程 tag</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin --delete tag [tagname]
+</code></pre></div></div>
+
+<h3 id="基于某次-commit-创建-tag">基于某次 commit 创建 tag</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag &lt;tag name&gt; &lt;commit id&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag v1.0.0 ef0120
+</code></pre></div></div>
+
+<h3 id="清除未跟踪文件">清除未跟踪文件</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clean
+</code></pre></div></div>
+
+<p>可选项：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>选项</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-q, –quiet</td>
+      <td>不显示删除文件名称</td>
+    </tr>
+    <tr>
+      <td>-n, –dry-run</td>
+      <td>试运行</td>
+    </tr>
+    <tr>
+      <td>-f, –force</td>
+      <td>强制删除</td>
+    </tr>
+    <tr>
+      <td>-i, –interactive</td>
+      <td>交互式删除</td>
+    </tr>
+    <tr>
+      <td>-d</td>
+      <td>删除文件夹</td>
+    </tr>
+    <tr>
+      <td>-e, –exclude <pattern></pattern></td>
+      <td>忽略符合 <pattern> 的文件</pattern></td>
+    </tr>
+    <tr>
+      <td>-x</td>
+      <td>清除包括 .gitignore 里忽略的文件</td>
+    </tr>
+    <tr>
+      <td>-X</td>
+      <td>只清除 .gitignore 里忽略的文件</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="忽略文件属性更改">忽略文件属性更改</h3>
+
+<p>因为临时需求对某个文件 chmod 了一下，结果这个就被记为了更改，有时候这是想要的，有时候这会造成困扰。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global core.filemode false
+</code></pre></div></div>
+
+<p>参考：<a href="http://stackoverflow.com/questions/1580596/how-do-i-make-git-ignore-file-mode-chmod-changes">How do I make Git ignore file mode (chmod) changes?</a></p>
+
+<h3 id="忽略除某后缀名以外的所有文件">忽略除某后缀名以外的所有文件</h3>
+
+<p>忽略除了 .c 后缀名以外的所有文件。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+!*.c
+!*/
+</code></pre></div></div>
+
+<p>gitignore 里，*、?、[] 可用作通配符。</p>
+
+<h3 id="patch">patch</h3>
+
+<p>将未添加到暂存区的更改生成 patch 文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff &gt; demo.patch
+</code></pre></div></div>
+
+<p>将已添加到暂存区的更改生成 patch 文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff --cached &gt; demo.patch
+</code></pre></div></div>
+
+<p>合并上面两条命令生成的 patch 文件包含的更改：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git apply demo.patch
+</code></pre></div></div>
+
+<p>将从 HEAD 之前的 3 次 commit 生成 3 个 patch 文件：</p>
+
+<p>（HEAD 可以换成 sha1 码）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git format-patch -3 HEAD
+</code></pre></div></div>
+
+<p>生成 af8e2 与 eaf8e 之间的 commits 的 patch 文件：</p>
+
+<p>（注意 af8e2 比 eaf8e 早）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git format-patch af8e2..eaf8e
+</code></pre></div></div>
+
+<p>合并 format-patch 命令生成的 patch 文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git am 0001-Update.patch
+</code></pre></div></div>
+
+<p>与 <code class="language-plaintext highlighter-rouge">git apply</code> 不同，这会直接 add 和 commit。</p>
+
+<h3 id="只下载最新代码">只下载最新代码</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone --depth 1 git://xxxxxx
+</code></pre></div></div>
+
+<p>这样 clone 出来的仓库会是一个 shallow 的状态，要让它变成一个完整的版本：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch --unshallow
+</code></pre></div></div>
+
+<p>或</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull --unshallow
+</code></pre></div></div>
+
+<h3 id="基于某次-commit-创建分支">基于某次 commit 创建分支</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout <span class="nt">-b</span> <span class="nb">test </span>5234ab
+</code></pre></div></div>
+
+<p>表示以 commit hash 为 <code class="language-plaintext highlighter-rouge">5234ab</code> 的代码为基础创建分支 <code class="language-plaintext highlighter-rouge">test</code>。</p>
+
+<h3 id="恢复单个文件到指定版本">恢复单个文件到指定版本</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset 5234ab MainActivity.java
+</code></pre></div></div>
+
+<p>恢复 MainActivity.java 文件到 commit hash 为 <code class="language-plaintext highlighter-rouge">5234ab</code> 时的状态。</p>
+
+<h3 id="设置全局-hooks">设置全局 hooks</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> core.hooksPath C:/Users/mazhuang/git-hooks
+</code></pre></div></div>
+
+<p>然后把对应的 hooks 文件放在最后一个参数指定的目录即可。</p>
+
+<p>比如想要设置在 commit 之前如果检测到没有从服务器同步则不允许 commit，那在以上目录下建立文件 pre-commit，内容如下：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+<span class="nv">CURRENT_BRANCH</span><span class="o">=</span><span class="si">$(</span>git rev-parse <span class="nt">--abbrev-ref</span> HEAD<span class="si">)</span>
+
+git fetch origin <span class="nv">$CURRENT_BRANCH</span>
+
+<span class="nv">HEAD</span><span class="o">=</span><span class="si">$(</span>git rev-parse HEAD<span class="si">)</span>
+<span class="nv">FETCH_HEAD</span><span class="o">=</span><span class="si">$(</span>git rev-parse FETCH_HEAD<span class="si">)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$FETCH_HEAD</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"</span><span class="nv">$HEAD</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Pre-commit check passed"</span>
+    <span class="nb">exit </span>0
+<span class="k">fi
+
+</span><span class="nb">echo</span> <span class="s2">"Error: you need to update from remote first"</span>
+
+<span class="nb">exit </span>1
+</code></pre></div></div>
+
+<h3 id="查看某次-commit-的修改内容">查看某次 commit 的修改内容</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git show &lt;commit-hash-id&gt;
+</code></pre></div></div>
+
+<h3 id="查看某个文件的修改历史">查看某个文件的修改历史</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">-p</span> &lt;filename&gt;
+</code></pre></div></div>
+
+<h3 id="查看最近两次的修改内容">查看最近两次的修改内容</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">-p</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<h3 id="应用已存在的某次更改--merge-某一个-commit">应用已存在的某次更改 / merge 某一个 commit</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git cherry-pick &lt;commit-hash-id&gt;
+</code></pre></div></div>
+
+<p>cherry-pick 有更多详细的用法，可以参见帮助文档。</p>
+
+<h3 id="命令行自动补全">命令行自动补全</h3>
+
+<p>在 shell 里加载 git-completion 系列脚本，详见 <a href="https://github.com/git/git/tree/master/contrib/completion">https://github.com/git/git/tree/master/contrib/completion</a></p>
+
+<h3 id="文件每一行变更明细">文件每一行变更明细</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git blame &lt;filename&gt;
+</code></pre></div></div>
+
+<h3 id="找回曾经的历史">找回曾经的历史</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reflog
+</code></pre></div></div>
+
+<p>列出 HEAD 曾指向过的一系列 commit，它们只存在于本机，不是版本仓库的一部分。</p>
+
+<p>还有：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fsck
+</code></pre></div></div>
+
+<h3 id="记住-https-方式的用户名密码">记住 http(s) 方式的用户名密码</h3>
+
+<p>在有些情况下无法使用 git 协议，比如公司的 git 服务器设置了 IP 白名单，只能在公司内网使用 ssh，那么在外面就只能使用 http(s) 上传下载源码了，但每次都手动输入用户名/密码特别惨，于是乎就记住吧。</p>
+
+<p>设置记住密码（默认 15 分钟）：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> credential.helper cache
+</code></pre></div></div>
+
+<p>自定义记住的时间（如下面是一小时）：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config credential.helper <span class="s1">'cache --timeout=3600'</span>
+</code></pre></div></div>
+
+<p>长期存储密码：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> credential.helper store
+</code></pre></div></div>
+
+<h3 id="git-commit-使用-vim-编辑-commit-message-中文乱码">git commit 使用 vim 编辑 commit message 中文乱码</h3>
+
+<p>这个问题在 Windows 下出现了，没找到能完美解决的办法，一种方法是在 vim 打开后输入：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set <span class="nv">termencoding</span><span class="o">=</span>GBK
+</code></pre></div></div>
+
+<p>这就有点太麻烦了，折衷的方法是改为使用 gVim 或其它你喜欢的编辑器来编辑 commit message：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> core.editor gvim
+</code></pre></div></div>
+
+<p>参考：</p>
+<ul>
+  <li><a href="https://stackoverflow.com/questions/2596805/how-do-i-make-git-use-the-editor-of-my-choice-for-commits">How do I make Git use the editor of my choice for commits?</a></li>
+  <li><a href="http://www.cnblogs.com/youxin/p/3227961.html">转：git windows中文 乱码问题解决汇总</a></li>
+</ul>
+
+<p>另外在升级 Vim 到 8.1 之后，由于 PATH 环境变量里加的还是 vim80 文件夹，导致 git commit 时提示：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error: cannot spawn gvim: No such file or directory
+error: unable to start editor 'gvim'
+Please supply the message using either -m or -F option.
+</code></pre></div></div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">which gvim</code> 查看：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ which gvim
+/usr/bin/which: no gvim in xxxxxxx
+</code></pre></div></div>
+
+<p>将 PATH 里添加的 vim80 路径改为 vim81 后解决。</p>
+
+<h3 id="git-log-中文乱码">git log 中文乱码</h3>
+
+<p>只在 Windows 下遇到。</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> i18n.logoutputencoding gbk
+</code></pre></div></div>
+
+<p>编辑 git 安装目录下 etc/profile 文件，在最后添加如下内容：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export LESSCHARSET=utf-8
+</code></pre></div></div>
+
+<p>参考：<a href="https://segmentfault.com/a/1190000000578037">Git for windows 中文乱码解决方案</a></p>
+
+<h3 id="git-diff-中文乱码">git diff 中文乱码</h3>
+
+<p>只在 Windows 下遇到，目前尚未找到有效办法。</p>
+
+<h3 id="统计代码行数">统计代码行数</h3>
+
+<p>CMD 下直接执行可能失败，可以在右键，Git Bash here 里执行。</p>
+
+<h4 id="统计某人的代码提交量">统计某人的代码提交量</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">--author</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>git config <span class="nt">--get</span> user.name<span class="si">)</span><span class="s2">"</span> <span class="nt">--pretty</span><span class="o">=</span>tformat: <span class="nt">--numstat</span> | gawk <span class="s1">'{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf "added lines: %s removed lines : %s total lines: %s\n",add,subs,loc }'</span>
+</code></pre></div></div>
+
+<h4 id="仓库提交都排名前-5">仓库提交都排名前 5</h4>
+
+<p>如果看全部，去掉 head 管道即可。</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">--pretty</span><span class="o">=</span><span class="s1">'%aN'</span> | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-k1</span> <span class="nt">-n</span> <span class="nt">-r</span> | <span class="nb">head</span> <span class="nt">-n</span> 5
+</code></pre></div></div>
+
+<h4 id="仓库提交者邮箱排名前-5">仓库提交者（邮箱）排名前 5</h4>
+
+<p>这个统计可能不太准，可能有同名。</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">--pretty</span><span class="o">=</span>format:%ae | gawk <span class="nt">--</span> <span class="s1">'{ ++c[$0]; } END { for(cc in c) printf "%5d %s\n",c[cc],cc; }'</span> | <span class="nb">sort</span> <span class="nt">-u</span> <span class="nt">-n</span> <span class="nt">-r</span> | <span class="nb">head</span> <span class="nt">-n</span> 5
+</code></pre></div></div>
+
+<h4 id="贡献者排名">贡献者排名</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">--pretty</span><span class="o">=</span><span class="s1">'%aN'</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<h4 id="提交数统计">提交数统计</h4>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">--oneline</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>参考：<a href="http://blog.csdn.net/Dwarven/article/details/46550117">Git代码行统计命令集</a></p>
+
+<h3 id="修改文件名时的大小写问题">修改文件名时的大小写问题</h3>
+
+<p>修改文件名大小写时，默认会被忽略（在 Windows 下是这样），让 git 对大小写敏感的方法：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> core.ignorecase <span class="nb">false</span>
+</code></pre></div></div>
+
+<p>或者使用 <code class="language-plaintext highlighter-rouge">git mv oldname newname</code> 也是可以的。</p>
+
+<h3 id="修复-gitk-在-macos-下显示模糊的问题">修复 gitk 在 macOS 下显示模糊的问题</h3>
+
+<p>gitk 很方便，但是在 Mac 系统下默认显示很模糊，影响体验。</p>
+
+<p>根据网上搜索的结果，解决方法有两种，我采用第一种解决，第二种未尝试。</p>
+
+<p>方法一：</p>
+
+<ol>
+  <li>
+    <p>重新启动机器，按 command + R 等 Logo 和进度条出现，会进入 Recovery 模式，选择顶部的实用工具——终端，运行以下命令：</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> csrutil disable
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>重新启动机器。</p>
+  </li>
+  <li>
+    <p>编辑 Wish 程序的 plist，启动高分辨率屏支持。</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sudo gvim /System/Library/Frameworks/Tk.framework/Versions/Current/Resources/Wish.app/Contents/Info.plist
+</code></pre></div>    </div>
+
+    <p>在最后的 &lt;/dict&gt; 前面加上以下代码</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;key&gt;NSHighResolutionCapable&lt;/key&gt;
+ &lt;<span class="nb">true</span>/&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>更新 Wish.app。</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">sudo touch </span>Wish.app
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>再次用 1 步骤的方法进入 Recovery 模式，执行 <code class="language-plaintext highlighter-rouge">csrutil enable</code> 启动对系统文件保护，再重启即可。</p>
+  </li>
+</ol>
+
+<p>参考：<a href="http://roshanca.com/2017/make-gitk-retina-in-mac/">Mac 中解决 gitk 模糊问题</a></p>
+
+<p>方法二：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew cask <span class="nb">install </span>retinizer
+open /System/Library/Frameworks/Tk.framework/Versions/Current/Resources/
+</code></pre></div></div>
+
+<p>打开 retinizer，将 Wish.app 拖到 retinizer 的界面。</p>
+
+<p>参考：<a href="http://yanhaijing.com/git/2017/02/09/deep-git-4/">起底Git-Git基础</a></p>
+
+<h3 id="clone-时指定-master-以外的分支">clone 时指定 master 以外的分支</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="nt">-b</span> &lt;branch name&gt; <span class="nt">--single-branch</span> &lt;repo address&gt;
+</code></pre></div></div>
+
+<h3 id="获取当前分支名称">获取当前分支名称</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git symbolic-ref <span class="nt">--short</span> <span class="nt">-q</span> HEAD
+</code></pre></div></div>
+
+<h3 id="解决-no-man-viewer-handled-the-request">解决 no man viewer handled the request</h3>
+
+<p>运行命令 <code class="language-plaintext highlighter-rouge">git stash --help</code> 报错：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>warning: failed to <span class="nb">exec</span> <span class="s1">'man'</span>: Invalid argument
+fatal: no man viewer handled the request
+</code></pre></div></div>
+
+<p>原因是 Windows 下没有 man 命令。</p>
+
+<p>可以修改 git 配置让命令的帮助文档通过浏览器打开。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global help.format web
+</code></pre></div></div>
+
+<h3 id="比较两个分支的差异">比较两个分支的差异</h3>
+
+<p>显示出所有差异详情：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff &lt;branch_name_1&gt; &lt;branch_name_2&gt;
+</code></pre></div></div>
+
+<p>显示有差异的文件列表：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff &lt;branch_name_1&gt; &lt;branch_name_2&gt; <span class="nt">--stat</span>
+</code></pre></div></div>
+
+<p>显示指定文件的差异详情：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff &lt;branch_name_1&gt; &lt;branch_name_2&gt; &lt;filename&gt;
+</code></pre></div></div>
+
+<p>查看 A 分支有，B 分支没有的提交：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log &lt;branch_name_A&gt; ^&lt;branch_name_B&gt;
+</code></pre></div></div>
+
+<h3 id="git-操作时报警告">git 操作时报警告</h3>
+
+<p>警告信息：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@       WARNING: POSSIBLE DNS SPOOFING DETECTED!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+The ECDSA host key for gitlab.xxxx.com has changed,
+and the key for the corresponding IP address 121.40.151.8
+is unknown. This could either mean that
+DNS SPOOFING is happening or the IP address for the host
+and its host key have changed at the same time.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:bud2tDwxl9687vMOUUBGXlwZhjxDTu7eVF43ojAu1Pw.
+Please contact your system administrator.
+Add correct host key in /c/Users/mzlogin/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /c/Users/mzlogin/.ssh/known_hosts:1
+ECDSA host key for gitlab.xxxx.com has changed and you have requested strict checking.
+Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre></div></div>
+
+<p>解决方案：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm ~/.ssh/known_hosts
+</code></pre></div></div>
+
+<p>然后重新操作即可。</p>
+
+<h3 id="删除不存在对应远程分支的本地分支">删除不存在对应远程分支的本地分支</h3>
+
+<p>（本小节有效性存疑，有时候并不好使。）</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git remote show origin
+develop                             tracked
+master                              tracked
+feature/new-ui                      tracked
+refs/remotes/origin/feature/test    stale <span class="o">(</span>use <span class="s1">'git remote prune'</span> to remove<span class="o">)</span>
+...
+</code></pre></div></div>
+
+<p>其中 feature/test 就是不存在远程分支的本地分支。</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git remote prune origin
+</code></pre></div></div>
+
+<p>清除完成。</p>
+:ET

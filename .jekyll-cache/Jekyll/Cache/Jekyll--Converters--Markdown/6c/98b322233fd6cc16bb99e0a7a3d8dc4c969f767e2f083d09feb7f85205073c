@@ -1,0 +1,160 @@
+I"><p>Mac OS X 下最好用的播放器，没有之一。</p>
+
+<h2 id="快捷键">快捷键</h2>
+
+<p>参考：<a href="https://github.com/mpv-player/mpv/blob/master/etc/input.conf">mpv keybindings</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>按键</th>
+      <th>功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RIGHT</td>
+      <td>前进 5 秒</td>
+    </tr>
+    <tr>
+      <td>LEFT</td>
+      <td>后退 5 秒</td>
+    </tr>
+    <tr>
+      <td>UP</td>
+      <td>前进 60 秒</td>
+    </tr>
+    <tr>
+      <td>DOWN</td>
+      <td>后退 60 秒</td>
+    </tr>
+    <tr>
+      <td>[</td>
+      <td>0.9091 倍速播放</td>
+    </tr>
+    <tr>
+      <td>]</td>
+      <td>1.1 倍速播放</td>
+    </tr>
+    <tr>
+      <td>{</td>
+      <td>0.5 倍速播放</td>
+    </tr>
+    <tr>
+      <td>}</td>
+      <td>2.0 倍速播放</td>
+    </tr>
+    <tr>
+      <td>Backspace</td>
+      <td>还原到 1.0 倍速</td>
+    </tr>
+    <tr>
+      <td>Space 或 p</td>
+      <td>播放/暂停</td>
+    </tr>
+    <tr>
+      <td>.</td>
+      <td>下一帧</td>
+    </tr>
+    <tr>
+      <td>,</td>
+      <td>上一帧</td>
+    </tr>
+    <tr>
+      <td>9 或 /</td>
+      <td>音量 -2</td>
+    </tr>
+    <tr>
+      <td>0 或 *</td>
+      <td>音量 +2</td>
+    </tr>
+    <tr>
+      <td>f</td>
+      <td>切换是否全屏</td>
+    </tr>
+    <tr>
+      <td>v</td>
+      <td>显示/隐藏字幕</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td>切换是否前端显示</td>
+    </tr>
+    <tr>
+      <td>s</td>
+      <td>截屏，有字幕</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>截屏，无字幕</td>
+    </tr>
+    <tr>
+      <td>o</td>
+      <td>显示进度条与时间，2 秒后消失</td>
+    </tr>
+    <tr>
+      <td>I (大写 i)</td>
+      <td>显示当前文件名</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>对比度 -1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>对比度 +1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>亮度 -1</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>亮度 +1</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Gamma 值 -1</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Gamma 值 +1</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>饱和度 -1</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>饱和度 +1</td>
+    </tr>
+    <tr>
+      <td>l (小写 L)</td>
+      <td>设置/清除 A-B 循环点</td>
+    </tr>
+    <tr>
+      <td>j/J</td>
+      <td>选择字幕</td>
+    </tr>
+    <tr>
+      <td>#</td>
+      <td>切换声道</td>
+    </tr>
+    <tr>
+      <td>q</td>
+      <td>退出</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="命令行参数">命令行参数</h2>
+
+<p>参考：<a href="https://github.com/mpv-player/mpv/blob/master/DOCS/man/options.rst">OPTIONS</a></p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+  <li><a href="https://segmentfault.com/a/1190000004533079">MPV使用小记</a></li>
+</ul>
+
+:ET

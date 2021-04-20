@@ -1,0 +1,118 @@
+I"�<h2 id="快捷键">快捷键</h2>
+
+<p>C –&gt; Ctrl</p>
+
+<p>S –&gt; Shift</p>
+
+<p>M –&gt; Alt</p>
+
+<p>Cmd –&gt; Command</p>
+
+<h3 id="常用操作">常用操作</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">功能</th>
+      <th style="text-align: left">Windows</th>
+      <th style="text-align: left">Mac OS X</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">当前页面下新建页面</td>
+      <td style="text-align: left">C-Return</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">预览</td>
+      <td style="text-align: left">F5</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">生成 HTML 文件</td>
+      <td style="text-align: left">F8</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">置于顶层</td>
+      <td style="text-align: left">C-S-]</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">置于底层</td>
+      <td style="text-align: left">C-S-[</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">上移一层</td>
+      <td style="text-align: left">C-]</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">下移一层</td>
+      <td style="text-align: left">C-[</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">开关左侧功能栏</td>
+      <td style="text-align: left">C-M-[</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">开关右侧功能栏</td>
+      <td style="text-align: left">C-M-]</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="操作多个元件">操作多个元件</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">功能</th>
+      <th style="text-align: left">Windows</th>
+      <th style="text-align: left">Mac OS X</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">左对齐</td>
+      <td style="text-align: left">C-M-l</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">左右居中</td>
+      <td style="text-align: left">C-M-c</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">右对齐</td>
+      <td style="text-align: left">C-M-r</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">顶部对齐</td>
+      <td style="text-align: left">C-M-t</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">上下居中</td>
+      <td style="text-align: left">C-M-m</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">底部对齐</td>
+      <td style="text-align: left">C-M-b</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">组合</td>
+      <td style="text-align: left">C-g</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+:ET

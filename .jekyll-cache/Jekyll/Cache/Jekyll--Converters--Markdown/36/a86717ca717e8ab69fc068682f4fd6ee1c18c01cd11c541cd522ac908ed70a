@@ -1,0 +1,273 @@
+I"C<p><strong>目录</strong></p>
+
+<ul id="markdown-toc">
+  <li><a href="#超链接" id="markdown-toc-超链接">超链接</a></li>
+  <li><a href="#列表" id="markdown-toc-列表">列表</a></li>
+  <li><a href="#强调" id="markdown-toc-强调">强调</a></li>
+  <li><a href="#标题" id="markdown-toc-标题">标题</a></li>
+  <li><a href="#表格" id="markdown-toc-表格">表格</a></li>
+  <li><a href="#代码块" id="markdown-toc-代码块">代码块</a></li>
+  <li><a href="#图片" id="markdown-toc-图片">图片</a></li>
+  <li><a href="#锚点" id="markdown-toc-锚点">锚点</a></li>
+  <li><a href="#inline-attribute" id="markdown-toc-inline-attribute">Inline Attribute</a></li>
+  <li><a href="#emoji" id="markdown-toc-emoji">Emoji</a></li>
+  <li><a href="#footnotes" id="markdown-toc-footnotes">Footnotes</a></li>
+  <li><a href="#mermaid" id="markdown-toc-mermaid">mermaid</a></li>
+  <li><a href="#sequence" id="markdown-toc-sequence">sequence</a></li>
+  <li><a href="#flowchart" id="markdown-toc-flowchart">flowchart</a></li>
+  <li><a href="#mathjax" id="markdown-toc-mathjax">mathjax</a></li>
+  <li><a href="#mindmap" id="markdown-toc-mindmap">mindmap</a></li>
+</ul>
+
+<h3 id="超链接">超链接</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[靠谱-ing](https://mazhuang.org)
+
+&lt;https://mazhuang.org&gt;
+</code></pre></div></div>
+
+<p><a href="https://mazhuang.org">靠谱-ing</a></p>
+
+<p><a href="https://mazhuang.org">https://mazhuang.org</a></p>
+
+<h3 id="列表">列表</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 有序列表项 1
+
+2. 有序列表项 2
+
+3. 有序列表项 3
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>有序列表项 1</p>
+  </li>
+  <li>
+    <p>有序列表项 2</p>
+  </li>
+  <li>
+    <p>有序列表项 3</p>
+  </li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* 无序列表项 1
+
+* 无序列表项 2
+
+* 无序列表项 3
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>无序列表项 1</p>
+  </li>
+  <li>
+    <p>无序列表项 2</p>
+  </li>
+  <li>
+    <p>无序列表项 3</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- [x] 任务列表 1
+- [ ] 任务列表 2
+</code></pre></div></div>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />任务列表 1</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />任务列表 2</li>
+</ul>
+
+<h3 id="强调">强调</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~~删除线~~
+
+**加黑**
+
+*斜体*
+</code></pre></div></div>
+
+<p><del>删除线</del></p>
+
+<p><strong>加黑</strong></p>
+
+<p><em>斜体</em></p>
+
+<h3 id="标题">标题</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题
+##### 五级标题
+###### 六级标题
+</code></pre></div></div>
+
+<p>Tips: <code class="language-plaintext highlighter-rouge">#</code> 与标题中间要加空格。</p>
+
+<h3 id="表格">表格</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| HEADER1 | HEADER2 | HEADER3 | HEADER4 |
+| ------- | :------ | :-----: | ------: |
+| content | content | content | content |
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>HEADER1</th>
+      <th style="text-align: left">HEADER2</th>
+      <th style="text-align: center">HEADER3</th>
+      <th style="text-align: right">HEADER4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>content</td>
+      <td style="text-align: left">content</td>
+      <td style="text-align: center">content</td>
+      <td style="text-align: right">content</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>:—– 表示左对齐</li>
+  <li>:—-: 表示中对齐</li>
+  <li>—–: 表示右对齐</li>
+</ol>
+
+<h3 id="代码块">代码块</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="s">'Hello, World!'</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>list item1</p>
+  </li>
+  <li>
+    <p>list item2</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="s">'hello'</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="图片">图片</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>![本站favicon](/favicon.ico)
+</code></pre></div></div>
+
+<p><img src="/favicon.ico" alt="本站favicon" /></p>
+
+<h3 id="锚点">锚点</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* [目录](#目录)
+</code></pre></div></div>
+
+<ul>
+  <li><a href="#目录">目录</a></li>
+</ul>
+
+<h3 id="inline-attribute">Inline Attribute</h3>
+
+<p>Span Inline Attribute 详情参考 <a href="https://kramdown.gettalong.org/syntax.html#span-ials">https://kramdown.gettalong.org/syntax.html#span-ials</a></p>
+
+<p>Block Inline Attribute 详情参考 <a href="https://kramdown.gettalong.org/syntax.html#block-ials">https://kramdown.gettalong.org/syntax.html#block-ials</a></p>
+
+<p>给块/元素添加 class、id、内嵌样式等：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>![本站favicon](/favicon.ico){:.center}
+
+Hello, *world*{:#world} 
+
+Hello, *world*{: style="color:red"} 
+</code></pre></div></div>
+
+<p><img src="/favicon.ico" alt="本站favicon" class="center" /></p>
+
+<p>Hello, <em id="world">world</em></p>
+
+<p>Hello, <em style="color:red">world</em></p>
+
+<p>结合自定义的样式，有些场景比较有用。</p>
+
+<h3 id="emoji">Emoji</h3>
+
+<p>:camel:
+:blush:
+:smile:</p>
+
+<h3 id="footnotes">Footnotes</h3>
+
+<p>This is a text with footnote<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
+
+<h3 id="mermaid">mermaid</h3>
+
+<div class="mermaid">
+sequenceDiagram
+    Alice--&gt;&gt;John: Hello John, how are you?
+    John--&gt;&gt;Alice: Great!
+</div>
+
+<h3 id="sequence">sequence</h3>
+
+<pre><code class="language-sequence">Andrew-&gt;China: Says Hello
+Note right of China: China thinks\nabout it
+China--&gt;Andrew: How are you?
+Andrew-&gt;&gt;China: I am good thanks!
+</code></pre>
+
+<h3 id="flowchart">flowchart</h3>
+
+<pre><code class="language-flow">st=&gt;start: Start
+e=&gt;end
+op1=&gt;operation: My Operation
+sub1=&gt;subroutine: My Subroutine
+cond=&gt;condition: Yes
+or No?
+io=&gt;inputoutput: catch something...
+
+st-&gt;op1-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;sub1(right)-&gt;op1
+</code></pre>
+
+<h3 id="mathjax">mathjax</h3>
+
+<p>When \((a \ne 0)\), there are two solutions to \((ax^2 + bx + c = 0)\) and they are</p>
+
+\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]
+
+<h3 id="mindmap">mindmap</h3>
+
+<pre><code class="language-mindmap"># topic
+## topic2
+### topic2.1
+### topic2.2
+## topic3
+&lt;!--Note--&gt;
+这是一个备注
+&lt;!--/Note--&gt;
+### topic3.1
+### topic3.2
+#### topic3.2.1
+#### topic3.2.2
+#### topic3.2.3
+#### topic3.2.4
+#### topic3.2.5
+### topic3.4
+### topic3.5
+### topic3.6
+</code></pre>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Here is the footnote 1 definition. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

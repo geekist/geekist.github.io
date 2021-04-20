@@ -1,0 +1,145 @@
+I"�<h3 id="快捷键">快捷键</h3>
+
+<p>C –&gt; Ctrl</p>
+
+<p>S –&gt; Shift</p>
+
+<p>A –&gt; Alt</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">功能</th>
+      <th style="text-align: left">快捷键</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">显示所有快捷键</td>
+      <td style="text-align: left">C-S-l</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">开/关注释</td>
+      <td style="text-align: left">C-/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">显示 outline</td>
+      <td style="text-align: left">C-o</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">当前打开的文件列表</td>
+      <td style="text-align: left">C-e</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">快速查找打开文件</td>
+      <td style="text-align: left">C-S-r</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">查找</td>
+      <td style="text-align: left">C-h</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">查找后跳到下一处</td>
+      <td style="text-align: left">C-.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Undo</td>
+      <td style="text-align: left">C-z</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Redo</td>
+      <td style="text-align: left">C-y</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">跳到指定行</td>
+      <td style="text-align: left">C-l</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">自动补全</td>
+      <td style="text-align: left">A-/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">自动解决导入包问题</td>
+      <td style="text-align: left">C-S-o</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">返回</td>
+      <td style="text-align: left">A-Left</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">反返回</td>
+      <td style="text-align: left">A-Right</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">步进</td>
+      <td style="text-align: left">F5</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">单步</td>
+      <td style="text-align: left">F6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">执行到返回</td>
+      <td style="text-align: left">F7</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">继续执行</td>
+      <td style="text-align: left">F8</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">删除当前行</td>
+      <td style="text-align: left">C-d</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">删除前一个词</td>
+      <td style="text-align: left">C-Backspace</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">删除后一个词</td>
+      <td style="text-align: left">C-Delete</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">缩进</td>
+      <td style="text-align: left">Tab</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">减少缩进</td>
+      <td style="text-align: left">S-Tab</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">在下面新起一行</td>
+      <td style="text-align: left">S-Enter</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">在上面新起一行</td>
+      <td style="text-align: left">C-S-Enter</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="qa">Q&amp;A</h3>
+
+<ol>
+  <li>
+    <p>如何解决 Mac OS X 下安装的是 Java 1.8，运行 Eclipse 时提示「您需要安装旧 Java SE 6 运行环境才能打开「Eclipse.app」。」的问题？</p>
+
+    <p><img src="/images/wiki/eclipse-need-java6.png" alt="" /></p>
+
+    <p>更改 /Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Info.plist 文件里的 JVMCapabilities 段如下（默认只有 <code class="language-plaintext highlighter-rouge">CommandLine</code>）：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;key&gt;JVMCapabilities&lt;/key&gt;
+            &lt;array&gt;
+                    &lt;string&gt;JNI&lt;/string&gt;
+                    &lt;string&gt;BundledApp&lt;/string&gt;
+                    &lt;string&gt;WebStart&lt;/string&gt;
+                    &lt;string&gt;Applets&lt;/string&gt;
+                    &lt;string&gt;CommandLine&lt;/string&gt;
+            &lt;/array&gt;
+</code></pre></div>    </div>
+
+    <p>然后重启电脑。</p>
+
+    <p>没有找到为何这样改的解释，按名称猜想应该是说在这几种环境下启动 Java 具有跨版本的兼容性吧。</p>
+  </li>
+</ol>
+:ET
