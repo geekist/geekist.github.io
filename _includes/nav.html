@@ -3,11 +3,12 @@
 	<nav id="nav">
 		<ul>
 			{% assign current = page.url | downcase | split: '/' %}
-			<li {% if current[1] == 'index.html' %}class='current'{% endif %}><a href="/index.html">Homepage</a></li>
-			<li {% if current[1] == 'blog' %}class='current'{% endif %}><a href="/blog">Blog</a></li>
-			<li {% if current[1] == 'left-sidebar.html' %}class='current'{% endif %}><a href="/left-sidebar.html">Left Sidebar</a></li>
-			<li {% if current[1] == 'right-sidebar.html' %}class='current'{% endif %}><a href="/right-sidebar.html">Right Sidebar</a></li>
-			<li {% if current[1] == 'no-sidebar.html' %}class='current'{% endif %}><a href="/no-sidebar.html">No Sidebar</a></li>
+			<li {% if current[1] == 'index.html' %}class='current'{% endif %}><a href="/index.html">基础知识</a></li>
+			<li {% if current[1] == 'blog' %}class='current'{% endif %}><a href="/blog">服务器</a></li>
+			<li {% if current[1] == 'left-sidebar.html' %}class='current'{% endif %}><a href="/left-sidebar.html">前端</a></li>
+			<li {% if current[1] == 'right-sidebar.html' %}class='current'{% endif %}><a href="/right-sidebar.html">iOS</a></li>
+			<li {% if current[1] == 'no-sidebar.html' %}class='current'{% endif %}><a href="/no-sidebar.html">Android</a></li>
+			<li {% if current[1] == 'management.html' %}class='current'{% endif %}><a href="/management.html">管理</a></li>
 		</ul>
 	</nav>
 </div>
