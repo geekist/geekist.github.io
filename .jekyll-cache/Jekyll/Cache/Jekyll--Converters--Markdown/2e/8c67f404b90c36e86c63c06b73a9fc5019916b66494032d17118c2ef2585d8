@@ -1,0 +1,197 @@
+I")<p>本文列出了HTML常用标签含义及对应中英文，方便查找和记忆。</p>
+
+<h2 id="nginx介绍">Nginx介绍</h2>
+
+<p>Nginx (“engine x”) 是一个开源的，支持高性能、高并发的 Web 服务和代理服务软件。它是由俄罗斯人 Igor Sysoev 开发的，最初被应用在俄罗斯的大型网站 www.rambler.ru 上。后来作者将源代码以类 BSD 许可的形式开源出来供全球使用。</p>
+
+<p>Nginx 同 Apache 一样都是一种 Web 服务器。基于 REST 架构风格，以统一资源描述符（Uniform Resources Identifier）URI 或者统一资源定位符（Uniform Resources Locator）URL 作为沟通依据，通过 HTTP 协议提供各种网络服务。</p>
+
+<p>Nginx 的官方介绍见 http://nginx.org/en/</p>
+
+<p>Nginx 中文介绍见 http://tengine.taobao.org/nginx_docs/cn/</p>
+
+<h2 id="nginx的架构">Nginx的架构</h2>
+<p><img src="/assets/images/nginx/nginx架构.jpg" alt="Nginx架构" class="img-responsive" /></p>
+
+<h2 id="nginx的特性">Nginx的特性：</h2>
+
+<h3 id="nginx-基本特性">Nginx 基本特性</h3>
+
+<ul>
+  <li>
+    <p>可针对静态资源高速高并发访问及缓存。</p>
+  </li>
+  <li>
+    <p>可使用反向代理加速，并且可进行数据缓存。</p>
+  </li>
+  <li>
+    <p>具有简单负载均衡、节点健康检查和容错功能。</p>
+  </li>
+  <li>
+    <p>支持远程 FastCGI 服务的缓存加速。</p>
+  </li>
+  <li>
+    <p>支持 FastCGI、Uwsgi、SCGI、Memcached Servers 的加速和缓存。</p>
+  </li>
+  <li>
+    <p>支持SSL、TLS、SNI。</p>
+  </li>
+  <li>
+    <p>具有模块化的架构：过滤器包括 gzip 压缩、ranges 支持、chunked 响应、XSLT、SSI 及图像缩放等功能。在SSI 过滤中，一个包含多个 SSI 的页面，如果经由 FastCGI 或反向代理，可被并行处理。</p>
+  </li>
+</ul>
+
+<h3 id="nginx-web-服务特性">Nginx Web 服务特性</h3>
+
+<ul>
+  <li>
+    <p>支持基于名字、端口及IP的多虚拟主机站点。</p>
+  </li>
+  <li>
+    <p>支持 Keep-alive 和 pipelined 连接。</p>
+  </li>
+  <li>
+    <p>可进行简单、方便、灵活的配置和管理。</p>
+  </li>
+  <li>
+    <p>支持修改 Nginx 配置，并且在代码上线时，可平滑重启，不中断业务访问。</p>
+  </li>
+  <li>
+    <p>可自定义访问日志格式，临时缓冲写日志操作，快速日志轮询及通过 rsyslog 处理日志。</p>
+  </li>
+  <li>
+    <p>可利用信号控制 Nginx 进程。</p>
+  </li>
+  <li>
+    <p>支持 3xx-5xx HTTP状态码重定向。</p>
+  </li>
+  <li>
+    <p>支持 rewrite 模块，支持 URI 重写及正则表达式匹配。</p>
+  </li>
+  <li>
+    <p>支持基于客户端 IP 地址和 HTTP 基本认证的访问控制。</p>
+  </li>
+  <li>
+    <p>支持 PUT、DELETE、MKCOL、COPY 及 MOVE 等特殊的 HTTP 请求方法。</p>
+  </li>
+  <li>
+    <p>支持 FLV 流和 MP4 流技术产品应用。</p>
+  </li>
+  <li>
+    <p>支持 HTTP 响应速率限制。</p>
+  </li>
+  <li>
+    <p>支持同一 IP 地址的并发连接或请求数限制。</p>
+  </li>
+  <li>
+    <p>支持邮件服务代理。</p>
+  </li>
+</ul>
+
+<h2 id="nginx的优点">Nginx的优点</h2>
+
+<ul>
+  <li>一、反向代理</li>
+</ul>
+
+<p><strong>正向代理</strong></p>
+
+<p>正向代理（forward）意思是一个位于客户端和原始服务器 (origin server) 之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标 (原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。</p>
+
+<p>正向代理是为我们服务的，即为客户端服务的，客户端可以根据正向代理访问到它本身无法访问到的服务器资源。</p>
+
+<p>正向代理对我们是透明的，对服务端是非透明的，即服务端并不知道自己收到的是来自代理的访问还是来自真实客户端的访问。</p>
+
+<p><img src="/assets/images/nginx/delegate.png" alt="正向代理" /></p>
+
+<p><strong>反向代理</strong></p>
+
+<p>反向代理（Reverse Proxy）方式是指以代理服务器来接受 internet 上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给 internet 上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p>
+
+<p>反向代理是为服务端服务的，反向代理可以帮助服务器接收来自客户端的请求，帮助服务器做请求转发，负载均衡等。</p>
+
+<p>反向代理对服务端是透明的，对我们是非透明的，即我们并不知道自己访问的是代理服务器，而服务器知道反向代理在为他服务。</p>
+
+<p><img src="/assets/images/nginx/reverse_delegate.png" alt="反向代理" /></p>
+
+<ul>
+  <li>二、负载均衡</li>
+</ul>
+
+<p>如果请求数过大，单个服务器解决不了，我们增加服务器的数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器的情况改为请求分发到多个服务器上，就是负载均衡。</p>
+
+<p>Nginx支持的负载均衡调度算法方式如下：</p>
+
+<p>weight轮询(默认，常用)：接收到的请求按照权重分配到不同的后端服务器，即使在使用过程中，某一台后端服务器宕机，Nginx会自动将该服务器剔除出队列，请求受理情况不会受到任何影响。这种方式下，可以给不同的后端服务器设置一个权重值(weight)，用于调整不同的服务器上请求的分配率；权重数据越大，被分配到请求的几率越大；该权重值，主要是针对实际工作环境中不同的后端服务器硬件配置进行调整的。ip_hash（常用）：每个请求按照发起客户端的ip的hash结果进行匹配，这样的算法下一个固定ip地址的客户端总会访问到同一个后端服务器，这也在一定程度上解决了集群部署环境下session共享的问题。</p>
+
+<p>fair：智能调整调度算法，动态的根据后端服务器的请求处理到响应的时间进行均衡分配，响应时间短处理效率高的服务器分配到请求的概率高，响应时间长处理效率低的服务器分配到的请求少；结合了前两者的优点的一种调度算法。但是需要注意的是Nginx默认不支持fair算法，如果要使用这种调度算法，请安装upstream_fair模块。url_hash：按照访问的url的hash结果分配请求，每个请求的url会指向后端固定的某个服务器，可以在Nginx作为静态服务器的情况下提高缓存效率。同样要注意Nginx默认不支持这种调度算法，要使用的话需要安装Nginx的hash软件包。</p>
+
+<ul>
+  <li>三、多路复用
+IO多路复用epoll（IO复用）</li>
+</ul>
+
+<p>如何理解呢？举个例子吧！</p>
+
+<p>有A、B、C三个老师，他们都遇到一个难题，要帮助一个班级的学生解决课堂作业。</p>
+
+<p>老师A采用从第一排开始一个学生一个学生轮流解答的方式去回答问题，老师A浪费了很多时间，并且有的学生作业还没有完成呢，老师就来了，反反复复效率极慢。</p>
+
+<p>老师B是一个忍者，他发现老师A的方法行不通，于是他使用了影分身术，分身出好几个自己同一时间去帮好几个同学回答问题，最后还没回答完，老师B消耗光了能量累倒了。</p>
+
+<p>老师C比较精明，他告诉学生，谁完成了作业举手，有举手的同学他才去指导问题，他让学生主动发声，分开了“并发”。</p>
+
+<p>这个老师C就是Nginx。</p>
+
+<ul>
+  <li>四、轻量级</li>
+</ul>
+
+<p>功能模块少 - Nginx仅保留了HTTP需要的模块，其他都用插件的方式，后天添加</p>
+
+<p>代码模块化 - 更适合二次开发，如阿里巴巴Tengine</p>
+
+<ul>
+  <li>五、CPU亲和</li>
+</ul>
+
+<p>把CPU核心和Nginx工作进程绑定，把每个worker进程固定在一个CPU上执行，减少切换CPU的cache miss，从而提高性能。</p>
+
+<h2 id="nginx的工作模式">Nginx的工作模式</h2>
+
+<p>启动Nginx后，其实就是在80端口启动了Socket服务进行监听，如图所示，Nginx涉及Master进程和Worker进程。</p>
+
+<p>Master进程的作用是读取并验证配置文件nginx.conf；管理worker进程；</p>
+
+<p>Worker进程的作用是：每一个Worker进程都维护一个线程（避免线程切换），处理连接和请求；注意Worker进程的个数由配置文件决定，一般和CPU个数相关（有利于进程切换），配置几个就有几个Worker进程。
+<img src="/assets/images/nginx/worker.jpg" alt="工作进程" /></p>
+
+<p>Nginx如何做到热部署？</p>
+
+<p>所谓热部署，就是配置文件nginx.conf修改后，不需要stop Nginx，不需要中断请求，就能让配置文件生效！（nginx -s reload 重新加载/nginx -t检查配置/nginx -s stop）</p>
+
+<p>通过上文我们已经知道worker进程负责处理具体的请求，那么如果想达到热部署的效果，可以想象：</p>
+
+<p>方案一：</p>
+
+<p>修改配置文件nginx.conf后，主进程master负责推送给woker进程更新配置信息，woker进程收到信息后，更新进程内部的线程信息。（有点valatile的味道）</p>
+
+<p>Nginx—-方案二：</p>
+
+<p>修改配置文件nginx.conf后，重新生成新的worker进程，当然会以新的配置进行处理请求，而且新的请求必须都交给新的worker进程，至于老的worker进程，等把那些以前的请求处理完毕后，kill掉即可。</p>
+
+<p>Nginx采用的就是方案二来达到热部署的！</p>
+
+<p>Nginx采用了Linux的epoll模型，epoll模型基于事件驱动机制，它可以监控多个事件是否准备完毕，如果OK，那么放入epoll队列中，这个过程是异步的。worker只需要从epoll队列循环处理即可。</p>
+
+<p>思考：Nginx挂了怎么办？Keepalived+Nginx实现高可用。</p>
+
+<p>Keepalived是一个高可用解决方案，主要是用来防止服务器单点发生故障，可以通过和Nginx配合来实现Web服务的高可用。（其实，Keepalived不仅仅可以和Nginx配合，还可以和很多其他服务配合）</p>
+
+<p>Keepalived+Nginx实现高可用的思路：</p>
+
+<p>第一：请求不要直接打到Nginx上，应该先通过Keepalived（这就是所谓虚拟IP，VIP）</p>
+
+<p>第二：Keepalived应该能监控Nginx的生命状态（提供一个用户自定义的脚本，定期检查Nginx进程状态，进行权重变化,，从而实现Nginx故障切换）</p>
+
+:ET

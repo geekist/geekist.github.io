@@ -1,0 +1,251 @@
+I"c<p>CentOS常用命令总结</p>
+
+<p>ls   显示文件或目录</p>
+
+<p>ls  -l  列出文件或目录的详细详细</p>
+
+<p>ls  -a  列出当前目录下所有文件及目录，包括隐藏的(all)</p>
+
+<p>mkdir   创建目录</p>
+
+<p>mkdir  -p  创建目录，若无父目录，则创建p(parent)</p>
+
+<p>rmdir 删除空目录</p>
+
+<p>cd 切换目录</p>
+
+<p>touch 创建空文件</p>
+
+<p>cat 查看文件内容</p>
+
+<p>cp 拷贝</p>
+
+<p>mv 移动或重命名</p>
+
+<p>rm 删除文件</p>
+
+<p>rm  -r               递归删除，可删除子目录及文件</p>
+
+<p>rm -f 强制删除</p>
+
+<p>find 在文件系统中搜索某文件</p>
+
+<p>wc 统计文本中行数、字数、字符数</p>
+
+<p>grep 在文本文件中查找某个字符串</p>
+
+<p>tree 树形结构显示目录，需要安装tree包</p>
+
+<p>pwd 显示当前目录</p>
+
+<p>ln 创建链接文件</p>
+
+<p>more、less 分页显示文本文件内容</p>
+
+<p>head、tail 显示文件头、尾内容</p>
+
+<p>ctrl+alt+F1 命令行全屏模式</p>
+
+<p>stat 显示指定文件的详细信息，比ls更详细</p>
+
+<p>who 显示在线登陆用户
+ whoami 显示当前操作用户</p>
+
+<p>hostname 显示主机名</p>
+
+<p>uname 显示系统信息</p>
+
+<p>top 动态显示当前耗费资源最多进程信息</p>
+
+<p>ps 显示瞬间进程状态 ps -aux</p>
+
+<p>du 查看目录大小 du -h /home带有单位显示目录信息</p>
+
+<p>df 查看磁盘大小 df -h 带有单位显示磁盘信息</p>
+
+<p>ifconfig 查看网络情况</p>
+
+<p>ping 测试网络连通</p>
+
+<p>netstat 显示网络状态信息</p>
+
+<p>man 命令</p>
+
+<p>clear 清屏</p>
+
+<p>alias 对命令重命名 如：alias showmeit=”ps -aux” ，另外解除使用unaliax showmeit</p>
+
+<p>打包压缩相关命令</p>
+
+<p>gzip：</p>
+
+<p>bzip2：</p>
+
+<p>tar: 打包压缩</p>
+
+<p>-c              归档文件</p>
+
+<p>-x              压缩文件</p>
+
+<p>-z              gzip压缩文件</p>
+
+<p>-j              bzip2压缩文件</p>
+
+<p>-v              显示压缩或解压缩过程 v(view)</p>
+
+<p>-f              使用档名
+例：</p>
+
+<p>tar -cvf /home/abc.tar /home/abc 只打包，不压缩</p>
+
+<p>tar -zcvf /home/abc.tar.gz /home/abc 打包，并用gzip压缩</p>
+
+<p>tar -jcvf /home/abc.tar.bz2 /home/abc 打包，并用bzip2压缩</p>
+
+<p>当然，如果想解压缩，就直接替换上面的命令 tar -cvf / tar -zcvf / tar -jcvf 中的“c” 换成“x” 就可以了。</p>
+
+<p>关机/重启机器</p>
+
+<p>shutdown</p>
+
+<p>-r             关机重启</p>
+
+<p>-h             关机不重启</p>
+
+<p>now          立刻关机
+halt 关机</p>
+
+<p>reboot 重启</p>
+
+<p>Linux管道</p>
+
+<p>将一个命令的标准输出作为另一个命令的标准输入。也就是把几个命令组合起来使用，后一个命令除以前一个命令的结果。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>例：grep -r “close” /home/*</td>
+      <td>more 在home目录下所有文件中查找，包括close的文件，并分页输出。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Linux软件包管理</p>
+
+<p>dpkg (Debian Package)管理工具，软件包名以.deb后缀。这种方法适合系统不能联网的情况下。</p>
+
+<p>比如安装tree命令的安装包，先将tree.deb传到Linux系统中。再使用如下命令安装。</p>
+
+<p>sudo dpkg -i tree_1.5.3-1_i386.deb 安装软件</p>
+
+<p>sudo dpkg -r tree 卸载软件</p>
+
+<p>注：将tree.deb传到Linux系统中，有多种方式。VMwareTool，使用挂载方式；使用winSCP工具等；</p>
+
+<p>APT（Advanced Packaging Tool）高级软件工具。这种方法适合系统能够连接互联网的情况。</p>
+
+<p>依然以tree为例</p>
+
+<p>sudo apt-get install tree 安装tree</p>
+
+<p>sudo apt-get remove tree 卸载tree</p>
+
+<p>sudo apt-get update 更新软件</p>
+
+<p>sudo apt-get upgrade</p>
+
+<p>将.rpm文件转为.deb文件</p>
+
+<p>.rpm为RedHat使用的软件格式。在Ubuntu下不能直接使用，所以需要转换一下。</p>
+
+<p>sudo alien abc.rpm</p>
+
+<p>vim使用</p>
+
+<p>vim三种模式：命令模式、插入模式、编辑模式。使用ESC或i或：来切换模式。</p>
+
+<p>命令模式下：</p>
+
+<p>:q 退出</p>
+
+<p>:q! 强制退出</p>
+
+<p>:wq 保存并退出</p>
+
+<p>:set number 显示行号</p>
+
+<p>:set nonumber 隐藏行号</p>
+
+<p>/apache 在文档中查找apache 按n跳到下一个，shift+n上一个</p>
+
+<p>yyp 复制光标所在行，并粘贴</p>
+
+<p>h(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字符→)</p>
+
+<p>用户及用户组管理</p>
+
+<p>/etc/passwd 存储用户账号</p>
+
+<p>/etc/group 存储组账号</p>
+
+<p>/etc/shadow 存储用户账号的密码</p>
+
+<p>/etc/gshadow 存储用户组账号的密码</p>
+
+<p>useradd 用户名</p>
+
+<p>userdel 用户名</p>
+
+<p>adduser 用户名</p>
+
+<p>groupadd 组名</p>
+
+<p>groupdel 组名</p>
+
+<p>passwd root 给root设置密码</p>
+
+<p>su root</p>
+
+<p>su - root</p>
+
+<p>/etc/profile 系统环境变量</p>
+
+<p>bash_profile 用户环境变量</p>
+
+<p>.bashrc 用户环境变量</p>
+
+<p>su user 切换用户，加载配置文件.bashrc</p>
+
+<p>su - user 切换用户，加载配置文件/etc/profile ，加载bash_profile</p>
+
+<p>更改文件的用户及用户组</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>sudo chown [-R] owner[:group] {File</td>
+      <td>Directory}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>例如：还以jdk-7u21-linux-i586.tar.gz为例。属于用户hadoop，组hadoop</p>
+
+<p>要想切换此文件所属的用户及组。可以使用命令。</p>
+
+<p>sudo chown root:root jdk-7u21-linux-i586.tar.gz</p>
+
+<p>文件权限管理</p>
+
+<p>三种基本权限</p>
+
+<p>R 读 数值表示为4</p>
+
+<p>W 写 数值表示为2</p>
+
+<p>X 可执行 数值表示为1</p>
+
+<p>————————————————
+版权声明：本文为CSDN博主「烬_zhang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_37506868/article/details/77896231</p>
+:ET

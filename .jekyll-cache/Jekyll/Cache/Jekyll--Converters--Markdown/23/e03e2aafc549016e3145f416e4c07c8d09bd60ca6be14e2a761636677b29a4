@@ -1,0 +1,30 @@
+I"�<p>Nginx常用命令</p>
+
+<h2 id="启动nginx">启动Nginx</h2>
+
+<p>nginx -c /usr/local/nginx/conf/nginx.conf  //-c参数指定了要加载的nginx配置文件路径</p>
+
+<h2 id="停止nginx">停止Nginx</h2>
+
+<p>步骤1：查询nginx主进程号</p>
+
+<p>ps -ef | grep nginx
+在进程列表里 面找master进程，它的编号就是主进程号了。</p>
+
+<p>步骤2：发送信号</p>
+
+<p>复制代码
+从容停止Nginx：
+kill -QUIT 主进程号<br />
+例如：kill -QUIT 16391</p>
+
+<p>快速停止Nginx：
+kill -TERM 主进程号</p>
+
+<p>强制停止Nginx：
+kill -9 主进程号</p>
+
+<h2 id="重启nginx">重启Nginx</h2>
+
+<p>/nginx -s reload</p>
+:ET
